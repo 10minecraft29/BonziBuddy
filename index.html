@@ -1,13 +1,96 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>BonziBuddy Download</title>
+<meta charset="UTF-8" />
+<title>BpnziBuddy Download</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    text-align: center;
+  }
+  #download-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  #captcha-container {
+    margin-top: 30px;
+  }
+  input[type="text"] {
+    font-size: 16px;
+    padding: 5px;
+    width: 80px;
+    text-align: center;
+  }
+  #captcha-question {
+    font-weight: bold;
+    font-size: 20px;
+  }
+</style>
 </head>
 <body>
   <h1>Your Download is Ready</h1>
+
+  <div id="captcha-container">
+    <div id="captcha-question">Loading captcha...</div>
+    <input type="text" id="captcha-input" autocomplete="off" placeholder="Your answer" />
+  </div>
+
   <a href="BonziBuddy432.zip" download>
-    <button>Download Now</button>
+    <button id="download-btn" disabled>Download Now</button>
   </a>
+
+<script>
+  const captchaQuestionEl = document.getElementById('captcha-question');
+  const captchaInput = document.getElementById('captcha-input');
+  const downloadBtn = document.getElementById('download-btn');
+
+  let correctAnswer;
+
+  function generateCaptcha() {
+    const operations = ['+', '-', '*'];
+    const num1 = Math.floor(Math.random() * 20) + 1;
+    const num2 = Math.floor(Math.random() * 20) + 1;
+    const op = operations[Math.floor(Math.random() * operations.length)];
+
+    let questionText;
+    switch(op) {
+      case '+':
+        correctAnswer = num1 + num2;
+        questionText = `${num1} + ${num2} = ?`;
+        break;
+      case '-':
+        // To avoid negative results, always subtract smaller from larger
+        if (num1 >= num2) {
+          correctAnswer = num1 - num2;
+          questionText = `${num1} - ${num2} = ?`;
+        } else {
+          correctAnswer = num2 - num1;
+          questionText = `${num2} - ${num1} = ?`;
+        }
+        break;
+      case '*':
+        correctAnswer = num1 * num2;
+        questionText = `${num1} × ${num2} = ?`;
+        break;
+    }
+
+    captchaQuestionEl.textContent = questionText;
+    captchaInput.value = '';
+    downloadBtn.disabled = true;
+  }
+
+  captchaInput.addEventListener('input', () => {
+    const answer = captchaInput.value.trim();
+    if (parseInt(answer, 10) === correctAnswer) {
+      downloadBtn.disabled = false;
+    } else {
+      downloadBtn.disabled = true;
+    }
+  });
+
+  generateCaptcha();
+</script>
 </body>
 </html>
