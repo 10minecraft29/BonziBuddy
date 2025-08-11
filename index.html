@@ -6,32 +6,87 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    margin: 40px;
+    margin: 0;
+    background: #4b0082; /* dark purple */
+    color: #e0d7f5; /* light lavender */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: #3a0066; /* deeper purple */
+    padding: 15px 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #c9a7ff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    user-select: none;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 70px; /* to offset header */
     text-align: center;
   }
-  #download-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-  }
+
   #captcha-container {
     margin-top: 30px;
+    font-size: 18px;
+  }
+
+  label {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #download-btn {
+    margin-top: 20px;
+    padding: 12px 28px;
+    font-size: 16px;
+    background: #a270ff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #download-btn:disabled {
+    background: #6a4ebf;
+    cursor: not-allowed;
+  }
+
+  #download-btn:not(:disabled):hover {
+    background: #c49aff;
   }
 </style>
 </head>
 <body>
-  <h1>Your Download is Ready</h1>
+  <header>BonziBuddy.com</header>
 
-  <div id="captcha-container">
-    <label>
-      <input type="checkbox" id="captcha-checkbox" />
-      I'm not a robot
-    </label>
-  </div>
+  <main>
+    <h1>Thank You for Downloading BonziBuddy!</h1>
 
-  <a href="BonziBuddy432.zip" download>
-    <button id="download-btn" disabled>Download Now</button>
-  </a>
+    <div id="captcha-container">
+      <label>
+        <input type="checkbox" id="captcha-checkbox" />
+        I'm not a robot
+      </label>
+    </div>
+
+    <a href="BonziBuddy432.zip" download>
+      <button id="download-btn" disabled>Download Now</button>
+    </a>
+  </main>
 
 <script>
   const checkbox = document.getElementById('captcha-checkbox');
