@@ -13,7 +13,6 @@
     display: flex;
     flex-direction: column;
   }
-
   header {
     background: #3a0066;
     padding: 15px 20px;
@@ -29,17 +28,14 @@
     width: 100%;
     box-shadow: 0 3px 8px rgba(0,0,0,0.3);
   }
-
   nav a {
     color: #e0d7f5;
-    text-decoration: none;
     margin-left: 15px;
+    text-decoration: none;
   }
-
   nav a:hover {
-    color: #c49aff;
+    text-decoration: underline;
   }
-
   main {
     flex: 1;
     display: flex;
@@ -49,17 +45,14 @@
     padding-top: 70px;
     text-align: center;
   }
-
   #captcha-container {
     margin-top: 30px;
     font-size: 18px;
   }
-
   label {
     cursor: pointer;
     user-select: none;
   }
-
   #download-btn {
     margin-top: 20px;
     padding: 12px 28px;
@@ -71,12 +64,10 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-
   #download-btn:disabled {
     background: #6a4ebf;
     cursor: not-allowed;
   }
-
   #download-btn:not(:disabled):hover {
     background: #c49aff;
   }
@@ -84,33 +75,28 @@
 </head>
 <body>
   <header>
-    BonziBuddy.com
+    <div>BonziBuddy.com</div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="about.html">About</a>
       <a href="download.html">Download</a>
+      <a href="about.html">About</a>
     </nav>
   </header>
-
   <main>
     <h1>Download BonziBuddy</h1>
-
     <div id="captcha-container">
       <label>
         <input type="checkbox" id="captcha-checkbox" />
         I'm not a robot
       </label>
     </div>
-
     <a href="yourfile.zip" download>
       <button id="download-btn" disabled>Download Now</button>
     </a>
   </main>
-
 <script>
   const checkbox = document.getElementById('captcha-checkbox');
   const downloadBtn = document.getElementById('download-btn');
-
   checkbox.addEventListener('change', () => {
     downloadBtn.disabled = !checkbox.checked;
   });
