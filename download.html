@@ -9,9 +9,6 @@
     margin: 0;
     background: #4b0082;
     color: #e0d7f5;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
   }
   header {
     background: #3a0066;
@@ -20,16 +17,11 @@
     font-size: 20px;
     color: #c9a7ff;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    justify-content: space-between;
   }
   nav a {
-    color: #e0d7f5;
+    color: #c9a7ff;
     margin-left: 15px;
     text-decoration: none;
   }
@@ -37,13 +29,8 @@
     text-decoration: underline;
   }
   main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 70px;
     text-align: center;
+    padding: 80px 20px;
   }
   #captcha-container {
     margin-top: 30px;
@@ -51,7 +38,12 @@
   }
   label {
     cursor: pointer;
-    user-select: none;
+  }
+  #loading {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #c9a7ff;
+    display: none;
   }
   #download-btn {
     margin-top: 20px;
@@ -62,43 +54,55 @@
     border-radius: 6px;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  #download-btn:disabled {
-    background: #6a4ebf;
-    cursor: not-allowed;
-  }
-  #download-btn:not(:disabled):hover {
-    background: #c49aff;
+    display: none; /* Hidden now, since download auto triggers */
   }
 </style>
 </head>
 <body>
   <header>
-    <div>BonziBuddy.com</div>
+    BonziBuddy.com
     <nav>
       <a href="index.html">Home</a>
-      <a href="download.html">Download</a>
       <a href="about.html">About</a>
+      <a href="download.html">Download</a>
     </nav>
   </header>
   <main>
     <h1>Download BonziBuddy</h1>
+    <p>Complete the verification below to start your download.</p>
+
     <div id="captcha-container">
       <label>
-        <input type="checkbox" id="captcha-checkbox" />
-        I'm not a robot
+        <input type="checkbox" id="captcha-checkbox" /> I'm not a robot
       </label>
     </div>
-    <a href="yourfile.zip" download>
-      <button id="download-btn" disabled>Download Now</button>
-    </a>
+
+    <div id="loading">Loading your download... Please wait.</div>
+
+    <!-- Hidden download link -->
+    <a href="yourfile.zip" download id="download-link"></a>
   </main>
+
 <script>
   const checkbox = document.getElementById('captcha-checkbox');
-  const downloadBtn = document.getElementById('download-btn');
+  const loading = document.getElementById('loading');
+  const downloadLink = document.getElementById('download-link');
+
   checkbox.addEventListener('change', () => {
-    downloadBtn.disabled = !checkbox.checked;
+    if (checkbox.checked) {
+      loading.style.display = 'block';
+      // Wait 3 seconds to simulate loading
+      setTimeout(() => {
+        // Trigger download
+        downloadLink.click();
+        // Hide loading after download triggered
+        loading.style.display = 'none';
+        // Optionally uncheck the box to prevent repeated downloads
+        checkbox.checked = false;
+      }, 3000);
+    } else {
+      loading.style.display = 'none';
+    }
   });
 </script>
 </body>
